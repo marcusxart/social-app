@@ -16,15 +16,19 @@ const RightBar = () => {
 export default RightBar;
 
 const Bar = styled.div`
-  padding-left: 50px;
-  flex-basis: 25%;
+  padding-left: 5rem;
+  width: 320px;
   position: sticky;
   align-self: flex-start;
-  top: 7rem;
-  max-height: 85vh;
+  top: 8.5rem;
+  max-height: 100vh;
   overflow-y: scroll;
   h2,
   hr {
     margin-left: 1rem;
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 `;

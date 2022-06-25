@@ -15,10 +15,15 @@ const Home = () => {
 };
 
 const HomeStyled = styled.div`
-  padding: 0 3%;
+  padding: 0 2rem;
   display: flex;
-  gap: 40px;
   justify-content: space-between;
+  @media screen and (max-width: 1030px) {
+    justify-content: center;
+  }
+  @media screen and (max-width: 700px) {
+    padding: 0 1rem;
+  }
 `;
 
 export default Home;

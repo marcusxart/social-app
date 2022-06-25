@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Avatar } from "@mui/material";
 import variable from "../variable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,7 +19,7 @@ const Header = () => {
           <span>ocial</span>
         </div>
       </div>
-      <ul>
+      <ul className="menu">
         <li>
           <FontAwesomeIcon icon={faHome} />
         </li>
@@ -51,10 +50,10 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 3%;
+  padding: 0.5rem 2rem;
 
   svg {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .profile {
@@ -66,7 +65,7 @@ const Nav = styled.nav`
     list-style: none;
 
     li {
-      padding: 0 20px;
+      padding: 0 4rem;
     }
   }
 
@@ -78,6 +77,13 @@ const Nav = styled.nav`
     .s {
       font-family: "Lobster", cursive;
       font-size: 3.5rem;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    .menu {
+      display: none;
     }
   }
 `;

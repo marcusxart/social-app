@@ -74,14 +74,16 @@ const LeftBar = () => {
 export default LeftBar;
 
 const Bar = styled.div`
-  flex-basis: 25%;
+  flex: 1;
+  max-width: 320px;
   position: sticky;
-  top: 7rem;
+  top: 8.5rem;
   align-self: flex-start;
+
   .bar-link {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2.3rem;
     font-size: 1.5rem;
     font-weight: 500;
     cursor: pointer;
@@ -91,5 +93,9 @@ const Bar = styled.div`
       margin-right: 1.5rem;
       color: ${variable.primaryColor};
     }
+  }
+
+  @media screen and (max-width: 1150px) {
+    display: none;
   }
 `;
