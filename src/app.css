@@ -12,3 +12,8 @@ body {
   background-color: #f0f2f5;
   font-family: "Roboto", sans-serif;
 }
+
+h2 {
+  font-size: 2rem;
+  color: rgb(87, 86, 94);
+}

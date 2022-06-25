@@ -1,14 +1,40 @@
 import React from "react";
 import styled from "styled-components";
+import { Avatar } from "@mui/material";
 import variable from "../variable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faPeopleGroup,
+  faShop,
+  faTv,
+  faCircleUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
     <Nav>
-      <div className="logo">
-        <span className="s">S</span>
-        <span>ocial</span>
+      <div className="nav-left">
+        <div className="logo">
+          <span className="s">S</span>
+          <span>ocial</span>
+        </div>
       </div>
+      <ul>
+        <li>
+          <FontAwesomeIcon icon={faHome} />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faTv} />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faShop} />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faPeopleGroup} />
+        </li>
+      </ul>
+      <FontAwesomeIcon className="profile" icon={faCircleUser} />
     </Nav>
   );
 };
@@ -18,16 +44,37 @@ export default Header;
 const Nav = styled.nav`
   color: ${variable.primaryColor};
   background-color: ${variable.white};
-  height: 5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  justify-content: space-between;
+  padding: 0.5rem 3%;
+
+  svg {
+    font-size: 2.5rem;
+  }
+
+  .profile {
+    font-size: 3.5rem;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+
+    li {
+      padding: 0 20px;
+    }
+  }
 
   .logo {
     font-size: 2rem;
     display: flex;
     align-items: center;
+    cursor: pointer;
     .s {
       font-family: "Lobster", cursive;
       font-size: 3.5rem;
