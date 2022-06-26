@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import StorySlider from "./StorySlider";
-import AddPost from "../AddPost";
+import AddPost from "./AddPost";
+import Posts from "./Posts";
 
 const MainBar = () => {
   return (
     <Bar>
       <StorySlider />
       <AddPost />
+      <Posts />
     </Bar>
   );
 };

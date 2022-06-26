@@ -21,7 +21,7 @@ const Bar = styled.div`
   position: sticky;
   align-self: flex-start;
   top: 8.5rem;
-  max-height: 100vh;
+  max-height: 55rem;
   overflow-y: scroll;
   h2,
   hr {

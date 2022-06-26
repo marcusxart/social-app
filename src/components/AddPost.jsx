@@ -7,7 +7,7 @@ import {
   faPhotoFilm,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
-import variable from "./variable";
+import variable from "../variable";
 
 const AddPost = () => {
   return (
@@ -47,10 +47,7 @@ const AddPostStyled = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   padding: 0 2rem;
-
-  hr {
-    border: 1px solid #ebebeb;
-  }
+  margin-bottom: 2.5rem;
 
   .top-wrapper {
     flex: 1;
@@ -91,7 +88,7 @@ const AddPostStyled = styled.div`
       justify-content: center;
       width: 100%;
       padding: 8px 5px;
-      border-radius: 5px;
+      border-radius: 10px;
       &:hover {
         background-color: #f1f1f3;
       }
@@ -99,6 +96,7 @@ const AddPostStyled = styled.div`
 
     span {
       font-size: 1.5rem;
+      font-weight: 500;
     }
 
     svg {
