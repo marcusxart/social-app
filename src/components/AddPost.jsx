@@ -53,6 +53,7 @@ const AddPostStyled = styled.div`
     flex: 1;
     display: flex;
     align-items: center;
+    padding-top: 5px;
 
     .profile {
       font-size: 3.5rem;

@@ -10,6 +10,8 @@ const MainBar = () => {
       <StorySlider />
       <AddPost />
       <Posts />
+      <Posts />
+      <Posts />
     </Bar>
   );
 };
@@ -17,11 +19,10 @@ const MainBar = () => {
 export default MainBar;
 
 const Bar = styled.div`
-  padding: 2.5rem 2rem 0;
+  padding: 2.5rem 2rem;
   min-width: 550px;
   max-width: 650px;
   flex: 1;
-  height: 200vh;
   @media screen and (max-width: 700px) {
     min-width: 320px;
     max-width: 500px;

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Comments from "./Comments";
 import variable from "../variable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +26,7 @@ const Posts = () => {
       <PostImage>
         <img src="./images/story-6.jpg" alt="" />
       </PostImage>
+      <Comments />
     </PostsStyled>
   );
 };
@@ -34,6 +36,8 @@ export default Posts;
 const PostsStyled = styled.div`
   max-width: 50rem;
   margin: auto;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
   border-radius: 10px;
   overflow: hidden;
   background-color: white;
@@ -78,7 +82,6 @@ const Header = styled.div`
 `;
 
 const PostImage = styled.div`
-  margin-bottom: 2rem;
   img {
     width: 100%;
   }

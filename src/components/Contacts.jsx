@@ -58,7 +58,7 @@ const ContactStyled = styled.div`
     align-items: center;
     padding: 1rem 0;
     padding-left: 1rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     font-size: 1.5rem;
     font-weight: 500;
     &:hover {
