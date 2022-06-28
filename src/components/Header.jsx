@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import variable from "../variable";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -11,7 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
-  return (
+  const path = useLocation().pathname;
+  return path === "/auth" ? null : (
     <Nav>
       <div className="nav-left">
         <div className="logo">
