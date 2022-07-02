@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TextField, Button } from "@mui/material";
-import variable from "./variable";
+import variable from "../variable";
 
 const Auth = () => {
   return (

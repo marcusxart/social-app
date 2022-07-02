@@ -34,7 +34,6 @@ const Posts = () => {
 export default Posts;
 
 const PostsStyled = styled.div`
-  max-width: 50rem;
   margin: auto;
   padding-bottom: 2rem;
   margin-bottom: 2.5rem;
