@@ -54,7 +54,7 @@ const Container = styled.div`
   padding: 2.5rem 1.5rem;
   background: white;
   max-width: 940px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
 `;
 
 const Lists = styled.ul`

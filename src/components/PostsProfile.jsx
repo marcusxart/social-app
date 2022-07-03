@@ -15,5 +15,5 @@ export default PostsProfile;
 
 const Container = styled.div`
   max-width: 940px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
 `;
