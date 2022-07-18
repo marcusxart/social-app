@@ -11,15 +11,17 @@ import { auth, db } from "../firebaseConfig";
 const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [names, setNames] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleCapitalize = (e) => {
     const value = e.target.value;
     const uppercaseWords = (str) =>
       str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
     const result = uppercaseWords(value);
-    setNames(result);
+    setName(result);
   };
 
   const handleSubmit = async (e) => {
@@ -32,8 +34,9 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
       );
       const user = response.user;
       await setDoc(doc(db, "users", user.uid), {
-        names,
+        name,
         email,
+        password,
       });
       setToggleSignUp(false);
     } catch (err) {
@@ -62,7 +65,7 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
                 type="text"
                 style={{ marginBottom: "1rem" }}
                 inputProps={{ style: { fontSize: 15 } }}
-                value={names}
+                value={name}
                 fullWidth
                 onChange={handleCapitalize}
               />

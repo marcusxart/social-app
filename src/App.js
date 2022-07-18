@@ -11,12 +11,11 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Auth from "./components/Auth";
 import Profile from "./components/Profile";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false);
-
   const handleGetUser = async () => {
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
@@ -28,10 +27,9 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleGetUser();
-        setIsActive(true);
       } else {
         dispatch(logOut());
-        setIsActive(true);
+        localStorage.setItem("isLoggin", JSON.stringify({ isActive: "false" }));
         navigate("/");
       }
     });
@@ -39,11 +37,14 @@ function App() {
 
   return (
     <main className="App">
-      {isActive && <Header />}
+      <Header />
+
       <Routes>
         <Route path="/" element={<Auth />} />
-        <Route path="/home" element={isActive && <Home />} />
-        <Route path="/profile/*" element={isActive && <Profile />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile/*" element={<Profile />} />
+        </Route>
       </Routes>
     </main>
   );

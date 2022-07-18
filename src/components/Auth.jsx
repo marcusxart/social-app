@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebaseConfig";
 import styled from "styled-components";
 import { TextField, Button } from "@mui/material";
 import variable from "../variable";
@@ -10,6 +13,20 @@ const Auth = () => {
   const [error, setError] = useState(null);
   const [toggleSignUp, setToggleSignUp] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleLogIn = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      const user = response.user;
+      localStorage.setItem("isLoggin", JSON.stringify({ isActive: "true" }));
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+      alert(err.message);
+    }
+  };
   return (
     <AuthStyled>
       <div className="left-wrapper">
@@ -23,7 +40,7 @@ const Auth = () => {
             <h2>Log In</h2>
           </header>
           <hr />
-          <form>
+          <form onSubmit={handleLogIn}>
             <TextField
               placeholder="Email"
               type="email"
