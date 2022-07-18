@@ -1,31 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import styled from "styled-components";
 import { TextField, Button } from "@mui/material";
 import variable from "../variable";
 import SignUp from "./SignUp";
-import { auth, signInUser } from "../firebaseConfig";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [toggleSignUp, setToggleSignUp] = useState(false);
-
-  const handleSignInUser = (e) => {
-    e.preventDefault();
-
-    signInUser(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user.uid);
-      })
-      .catch((err) => {
-        const errorMessage = err.message;
-        setError(errorMessage);
-      });
-  };
 
   return (
     <AuthStyled>
@@ -40,7 +23,7 @@ const Auth = () => {
             <h2>Log In</h2>
           </header>
           <hr />
-          <form onSubmit={handleSignInUser}>
+          <form>
             <TextField
               placeholder="Email"
               type="email"

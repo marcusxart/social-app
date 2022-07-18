@@ -1,28 +1,46 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TextField, Button } from "@mui/material";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { auth, createUser } from "../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { auth, db } from "../firebaseConfig";
 
 const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [names, setNames] = useState("");
+  const [error, setError] = useState("");
 
-  const handleCreateUser = (e) => {
+  const handleCapitalize = (e) => {
+    const value = e.target.value;
+    const uppercaseWords = (str) =>
+      str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+    const result = uppercaseWords(value);
+    setNames(result);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    createUser(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        setToggleSignUp(false);
-      })
-      .catch((err) => {
-        const errorMessage = err.message;
-        setError(errorMessage);
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = response.user;
+      await setDoc(doc(db, "users", user.uid), {
+        names,
+        email,
       });
+      setToggleSignUp(false);
+    } catch (err) {
+      setError(err);
+      alert(err.message);
+      console.log(err);
+    }
   };
 
   return (
@@ -38,7 +56,16 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
               />
             </header>
             <hr />
-            <Form onSubmit={handleCreateUser}>
+            <Form onSubmit={handleSubmit}>
+              <TextField
+                placeholder="Names"
+                type="text"
+                style={{ marginBottom: "1rem" }}
+                inputProps={{ style: { fontSize: 15 } }}
+                value={names}
+                fullWidth
+                onChange={handleCapitalize}
+              />
               <TextField
                 style={{ marginBottom: "1rem" }}
                 placeholder="Email"

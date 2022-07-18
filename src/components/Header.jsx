@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import variable from "../variable";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -12,8 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
-  const path = useLocation().pathname;
-  return path === "/auth" ? null : (
+  return (
     <Nav>
       <div className="nav-left">
         <div className="logo">
@@ -35,7 +35,10 @@ const Header = () => {
           <FontAwesomeIcon icon={faPeopleGroup} />
         </li>
       </ul>
-      <FontAwesomeIcon className="profile" icon={faCircleUser} />
+      <div className="profile">
+        <p>Chinonso</p>
+        <FontAwesomeIcon className="profile-icon" icon={faCircleUser} />
+      </div>
     </Nav>
   );
 };
@@ -59,7 +62,17 @@ const Nav = styled.nav`
   }
 
   .profile {
-    font-size: 3.5rem;
+    display: flex;
+    align-items: center;
+    p {
+      font-size: 2rem;
+      margin-right: 1rem;
+      color: black;
+    }
+    .profile-icon {
+      font-size: 3.5rem;
+      cursor: pointer;
+    }
   }
 
   ul {
