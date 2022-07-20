@@ -25,6 +25,7 @@ function App() {
   };
 
   useEffect(() => {
+    localStorage.setItem("isLoggin", JSON.stringify({ isActive: "false" }));
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUserData(user.uid);
