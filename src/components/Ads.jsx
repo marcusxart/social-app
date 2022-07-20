@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import ads1 from "../images/ad1.jpg";
+import ads2 from "../images/ad2.jpg";
 
 const Ads = () => {
   return (
@@ -7,7 +9,7 @@ const Ads = () => {
       <h2 style={{ marginBottom: "1rem" }}>Advertisement</h2>
       <div className="ads-wrapper">
         <a href="https://www.jumia.com.ng/" target="_blank" className="link">
-          <img className="img" src="./images/ad1.jpg" />
+          <img className="img" src={ads1} />
           <div className="content">
             <h3>Black Friday</h3>
             <p>www.jumia.com.ng</p>
@@ -15,7 +17,7 @@ const Ads = () => {
         </a>
 
         <a href="https://www.saveourworld.me/" target="_blank" className="link">
-          <img className="img" src="./images/ad2.jpg" />
+          <img className="img" src={ads2} />
           <div className="content">
             <h3>Save Our World</h3>
             <p>www.saveourworld.me</p>

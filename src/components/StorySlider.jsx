@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import variable from "../variable";
+import story5 from "../images/story-5.jpg";
+import story6 from "../images/story-6.jpg";
+import story1 from "../images/story-1.jpg";
+import story4 from "../images/story-4.jpg";
 
 const StorySlider = () => {
   return (
@@ -15,16 +19,16 @@ const StorySlider = () => {
           <div className="profile-box"></div>
         </div>
         <div className="story-box">
-          <img src="./images/story-5.jpg" alt="" />
+          <img src={story5} alt="" />
         </div>
         <div className="story-box">
-          <img src="./images/story-6.jpg" alt="" />
+          <img src={story6} alt="" />
         </div>
         <div className="story-box">
-          <img src="./images/story-1.jpg" alt="" />
+          <img src={story1} alt="" />
         </div>
         <div className="story-box">
-          <img src="./images/story-4.jpg" alt="" />
+          <img src={story4} alt="" />
         </div>
       </div>
     </Story>

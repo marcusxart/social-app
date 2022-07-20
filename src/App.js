@@ -17,7 +17,7 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  localStorage.setItem("isLoggin", JSON.stringify({ isActive: "false" }));
   const handleUserData = async (id) => {
     onSnapshot(doc(db, "users", id), (doc) => {
       dispatch(logIn({ id: doc.id, ...doc.data() }));
@@ -25,7 +25,6 @@ function App() {
   };
 
   useEffect(() => {
-    localStorage.setItem("isLoggin", JSON.stringify({ isActive: "false" }));
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUserData(user.uid);
@@ -42,7 +41,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Auth />} />
+        <Route index element={<Auth />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile/*" element={<Profile />} />

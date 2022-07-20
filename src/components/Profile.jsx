@@ -22,7 +22,7 @@ const Profile = () => {
   const [imgToggle, setImgToggle] = useState(false);
   const [imgFile, setImgFile] = useState("");
   const [coverFile, setCoverFile] = useState("");
-  console.log(user && user.id);
+
   const handleUpdate = async (data) => {
     const uploadRef = doc(db, "users", user.id);
     await updateDoc(uploadRef, data);

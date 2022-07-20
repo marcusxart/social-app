@@ -4,6 +4,7 @@ import Comments from "./Comments";
 import variable from "../variable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import story6 from "../images/story-6.jpg";
 
 const Posts = () => {
   return (
@@ -24,7 +25,7 @@ const Posts = () => {
         </p>
       </Header>
       <PostImage>
-        <img src="./images/story-6.jpg" alt="" />
+        <img src={story6} alt="" />
       </PostImage>
       <Comments />
     </PostsStyled>
