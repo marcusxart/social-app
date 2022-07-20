@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "./firebaseConfig";
@@ -16,9 +17,9 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleGetUser = async () => {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
+
+  const handleUserData = async (id) => {
+    onSnapshot(doc(db, "users", id), (doc) => {
       dispatch(logIn({ id: doc.id, ...doc.data() }));
     });
   };
@@ -26,7 +27,7 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        handleGetUser();
+        handleUserData(user.uid);
       } else {
         dispatch(logOut());
         localStorage.setItem("isLoggin", JSON.stringify({ isActive: "false" }));

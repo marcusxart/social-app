@@ -14,8 +14,6 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
-
   const handleCapitalize = (e) => {
     const value = e.target.value;
     const uppercaseWords = (str) =>

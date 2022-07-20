@@ -57,11 +57,13 @@ const Header = () => {
               <FontAwesomeIcon icon={faPeopleGroup} />
             </li>
           </ul>
-          <FontAwesomeIcon
-            onClick={() => setToggle(!toggle)}
-            className="profile-icon"
-            icon={faCircleUser}
-          />
+          <div className="profile-img" onClick={() => setToggle(!toggle)}>
+            {user && user.profileImg ? (
+              <img src={user.profileImg} alt="" />
+            ) : (
+              <FontAwesomeIcon className="profile-icon" icon={faCircleUser} />
+            )}
+          </div>
           {toggle && (
             <Modol>
               <Link to="/profile">
@@ -70,6 +72,7 @@ const Header = () => {
                     className="profile-icon"
                     icon={faCircleUser}
                   />
+
                   <p>{user && user.name}</p>
                 </div>
               </Link>
@@ -102,7 +105,18 @@ const Nav = styled.nav`
   svg {
     font-size: 2rem;
   }
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
 
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
   .profile-icon {
     font-size: 3.5rem;
     cursor: pointer;
@@ -143,7 +157,7 @@ const Modol = styled.div`
   width: 300px;
   padding: 8px;
   background-color: white;
-  box-shadow: 0 0 20px lightgrey;
+  box-shadow: 0 0 10px grey;
   right: 20px;
   z-index: 12;
   .modol-info {

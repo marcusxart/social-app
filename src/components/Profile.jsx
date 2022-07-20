@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/slices/userSlice";
 import { Link, useLocation } from "react-router-dom";
 import Story6 from "../images/story-6.jpg";
 import Story5 from "../images/story-5.jpg";
@@ -8,10 +10,67 @@ import PostsProfile from "./PostsProfile";
 import FriendsProfile from "./FriendsProfile";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrashCan, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage, db } from "../firebaseConfig";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Profile = () => {
   const pathname = useLocation().pathname;
+  const user = useSelector(selectUser);
+  const [coverImgToggle, setCoverImgToggle] = useState(false);
+  const [imgToggle, setImgToggle] = useState(false);
+  const [imgFile, setImgFile] = useState("");
+  const [coverFile, setCoverFile] = useState("");
+  console.log(user && user.id);
+  const handleUpdate = async (data) => {
+    const uploadRef = doc(db, "users", user.id);
+    await updateDoc(uploadRef, data);
+  };
+  useEffect(() => {
+    const handleUpload = () => {
+      const cover = new Date().getTime() + coverFile.name;
+      const img = new Date().getTime() + imgFile.name;
+      setImgToggle(false);
+      setCoverImgToggle(false);
+      const storageRef = ref(storage, `images/${cover || img}`);
+
+      const uploadTask = uploadBytesResumable(storageRef, coverFile || imgFile);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (err) => {
+          alert(err);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            if (imgFile) {
+              user && handleUpdate({ profileImg: downloadURL });
+            } else {
+              user && handleUpdate({ coverImg: downloadURL });
+            }
+          });
+        }
+      );
+    };
+
+    (imgFile || coverFile) && handleUpload();
+    setCoverFile("");
+    setImgFile("");
+  }, [coverFile, imgFile]);
 
   const handleTabs = () => {
     if (pathname === "/profile/about") return <AboutProfile />;
@@ -24,17 +83,83 @@ const Profile = () => {
       <div className="top-wrapper">
         <div className="dashboard">
           <div className="cover">
-            <img src={Story6} alt="" />
+            {coverImgToggle && (
+              <div className="cover-modol">
+                <label className="cover-btn" htmlFor="myfile1">
+                  <FontAwesomeIcon icon={faUpload} />
+                  <p>Upload Photo</p>
+                </label>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  id="myfile1"
+                  name="myfile1"
+                  onChange={(e) => setCoverFile(e.target.files[0])}
+                />
+                <div className="cover-btn">
+                  <FontAwesomeIcon icon={faTrashCan} />
+                  <p>Remove</p>
+                </div>
+              </div>
+            )}
+            {user && user.coverImg ? (
+              <img src={user.coverImg} alt="" />
+            ) : (
+              <div className="no-img"></div>
+            )}
+            <Button
+              onClick={() => setCoverImgToggle(!coverImgToggle)}
+              variant="contained"
+              sx={{
+                bgcolor: "#fff",
+                color: "black",
+                fontSize: "1.2rem",
+                position: "absolute",
+                bottom: "10px",
+                right: "10px",
+                "&:hover": {
+                  bgcolor: "#eeeeee",
+                },
+              }}
+            >
+              Edit Cover Photo
+            </Button>
           </div>
           <div className="info">
             <div className="profile-desc">
-              <div className="profile-img">
-                <img src={Story5} alt="" />
+              <div
+                className="profile-img"
+                onClick={() => setImgToggle(!imgToggle)}
+              >
+                {user && user.profileImg ? (
+                  <img src={user.profileImg} alt="" />
+                ) : (
+                  <div className="no-img"></div>
+                )}
               </div>
               <div className="profile-info">
-                <h1>Name Surname</h1>
+                <h1>{user && user.name}</h1>
                 <p>33 friends</p>
               </div>
+              {imgToggle && (
+                <Model className="profile-modol">
+                  <label className="cover-btn" htmlFor="myfile2">
+                    <FontAwesomeIcon icon={faUpload} />
+                    <p>Upload Photo</p>
+                  </label>
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    id="myfile2"
+                    name="myfile2"
+                    onChange={(e) => setImgFile(e.target.files[0])}
+                  />
+                  <div className="cover-btn">
+                    <FontAwesomeIcon icon={faTrashCan} />
+                    <p>Remove</p>
+                  </div>
+                </Model>
+              )}
             </div>
 
             <div className="btn-group">
@@ -80,6 +205,19 @@ export default Profile;
 const ProfileStyled = styled.div`
   width: 100%;
   min-height: 100vh;
+
+  .no-img {
+    width: 100%;
+    height: 100%;
+    background-color: #52a9df;
+  }
+
+  .profile-modol {
+    right: -58px;
+    transform: translateY(-120px);
+    box-shadow: 0 0 10px grey;
+  }
+
   .top-wrapper {
     width: 100%;
     background-color: white;
@@ -101,10 +239,45 @@ const ProfileStyled = styled.div`
     border-bottom-left-radius: 1rem;
     overflow: hidden;
     img {
-      position: absolute;
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    .cover-modol {
+      position: absolute;
+      background: #fff;
+      bottom: 0;
+      right: 10px;
+      width: 200px;
+      padding: 4px;
+      padding-bottom: 0;
+      background-color: white;
+      border-radius: 5px;
+      z-index: 12;
+      transform: translateY(-45px);
+
+      p {
+        font-size: 1.4rem;
+      }
+
+      .cover-btn {
+        display: flex;
+        align-items: center;
+        color: #363636;
+        cursor: pointer;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 4px;
+        border-radius: 5px;
+        svg {
+          width: 20px;
+          height: 20px;
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          background-color: #f1f2f3;
+        }
+      }
     }
   }
 
@@ -135,7 +308,7 @@ const ProfileStyled = styled.div`
         margin-bottom: 0.5rem;
       }
       p {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
       }
       .profile-img {
         width: 180px;
@@ -144,6 +317,7 @@ const ProfileStyled = styled.div`
         overflow: hidden;
         margin-right: 10px;
         border: 5px solid white;
+        cursor: pointer;
 
         img {
           width: 100%;
@@ -177,5 +351,41 @@ const ProfileStyled = styled.div`
 
   .bottom-wrapper {
     margin-top: 20px;
+  }
+`;
+
+const Model = styled.div`
+  position: absolute;
+  background: #fff;
+  bottom: 0;
+  right: 10px;
+  width: 200px;
+  padding: 4px;
+  padding-bottom: 0;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 12;
+  transform: translateY(-45px);
+  p {
+    font-size: 1.4rem;
+  }
+  .cover-btn {
+    display: flex;
+    align-items: center;
+    color: #363636;
+    cursor: pointer;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 4px;
+    border-radius: 5px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      background-color: #f1f2f3;
+    }
   }
 `;
