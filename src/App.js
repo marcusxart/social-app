@@ -41,7 +41,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route index element={<Auth />} />
+        <Route path="/" element={<Auth />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile/*" element={<Profile />} />
