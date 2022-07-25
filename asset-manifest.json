@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/social-app/static/css/main.1264a077.css",
-    "main.js": "/social-app/static/js/main.7bfe7124.js",
+    "main.css": "/social-app/static/css/main.95f83138.css",
+    "main.js": "/social-app/static/js/main.d22ffa66.js",
     "static/media/ad1.jpg": "/social-app/static/media/ad1.22eda55f6dee5356aacf.jpg",
     "static/media/story-1.jpg": "/social-app/static/media/story-1.098e22f3198e64009fb7.jpg",
     "static/media/story-6.jpg": "/social-app/static/media/story-6.e7cc676ff8ac78a5462c.jpg",
@@ -9,11 +9,11 @@
     "static/media/ad2.jpg": "/social-app/static/media/ad2.4c62bcf49bd073637594.jpg",
     "static/media/story-4.jpg": "/social-app/static/media/story-4.bba2cc73eeaf0aefaadd.jpg",
     "index.html": "/social-app/index.html",
-    "main.1264a077.css.map": "/social-app/static/css/main.1264a077.css.map",
-    "main.7bfe7124.js.map": "/social-app/static/js/main.7bfe7124.js.map"
+    "main.95f83138.css.map": "/social-app/static/css/main.95f83138.css.map",
+    "main.d22ffa66.js.map": "/social-app/static/js/main.d22ffa66.js.map"
   },
   "entrypoints": [
-    "static/css/main.1264a077.css",
-    "static/js/main.7bfe7124.js"
+    "static/css/main.95f83138.css",
+    "static/js/main.d22ffa66.js"
   ]
 }
