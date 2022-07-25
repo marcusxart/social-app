@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/slices/userSlice";
 import variable from "../variable";
 import story5 from "../images/story-5.jpg";
 import story6 from "../images/story-6.jpg";
@@ -9,10 +11,12 @@ import story1 from "../images/story-1.jpg";
 import story4 from "../images/story-4.jpg";
 
 const StorySlider = () => {
+  const user = useSelector(selectUser);
   return (
     <Story>
       <div className="story-wrapper">
         <div className="story-box profile">
+          {user && user.profileImg && <img src={user.profileImg} alt="" />}
           <div className="plus-box">
             <FontAwesomeIcon icon={faPlus} />
           </div>
@@ -47,6 +51,9 @@ const Story = styled.div`
 
   .profile {
     position: relative;
+    img {
+      opacity: 0.6;
+    }
 
     .plus-box {
       z-index: 2;
@@ -90,7 +97,7 @@ const Story = styled.div`
     border-radius: 10px;
     overflow: hidden;
     margin: 0 5px;
-    background-color: pink;
+    background-color: #181818;
     img {
       width: 100%;
       height: 100%;

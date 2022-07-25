@@ -12,11 +12,12 @@ body {
   background-color: #f0f2f5;
   font-family: "Roboto", sans-serif;
   width: 100vw;
-  min-height: 100vh;
-  min-height: -webkit-fill-avaliable;
+  height: 100vh;
+  height: -webkit-fill-available;
 }
+
 html {
-  height: -webkit-fill-avaliable;
+  height: -webkit-fill-available;
 }
 
 h2 {
