@@ -38,10 +38,10 @@ const Header = () => {
       {path === "/" && isActive ? null : (
         <Nav>
           <div className="nav-left">
-            <div className="logo">
+            <Link to="/home" className="logo">
               <span className="s">S</span>
               <span>ocial</span>
-            </div>
+            </Link>
           </div>
           <ul className="menu">
             <li>
@@ -68,10 +68,16 @@ const Header = () => {
             <Modol>
               <Link to="/profile">
                 <div className="modol-info" onClick={() => setToggle(false)}>
-                  <FontAwesomeIcon
-                    className="profile-icon"
-                    icon={faCircleUser}
-                  />
+                  <div className="icon">
+                    {user && user.profileImg ? (
+                      <img src={user.profileImg} alt="" />
+                    ) : (
+                      <FontAwesomeIcon
+                        className="profile-icon"
+                        icon={faCircleUser}
+                      />
+                    )}
+                  </div>
 
                   <p>{user && user.name}</p>
                 </div>
@@ -135,7 +141,8 @@ const Nav = styled.nav`
     font-size: 2rem;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    text-decoration: none;
+    color: ${variable.primaryColor};
     .s {
       font-family: "Lobster", cursive;
       font-size: 3.5rem;
@@ -160,10 +167,26 @@ const Modol = styled.div`
   box-shadow: 0 0 10px grey;
   right: 20px;
   z-index: 12;
+  .icon {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
   .modol-info {
     display: flex;
     width: 100%;
     padding: 1rem 0.5rem;
+    align-items: center;
     &:hover {
       background-color: #f1f2f3;
       border-radius: 1rem;

@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "./firebaseConfig";
 import { useDispatch } from "react-redux";
 import { logIn, logOut } from "./features/slices/userSlice";
@@ -39,7 +38,7 @@ function App() {
   return (
     <main className="App">
       <Header />
-
+      {/* <CreatePost /> */}
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route element={<ProtectedRoute />}>

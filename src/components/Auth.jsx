@@ -19,7 +19,6 @@ const Auth = () => {
     e.preventDefault();
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      const user = response.user;
       localStorage.setItem("isLoggin", JSON.stringify({ isActive: "true" }));
       navigate("/home");
     } catch (err) {
@@ -90,6 +89,7 @@ export default Auth;
 
 const AuthStyled = styled.div`
   display: flex;
+  width: 100%;
   height: 100vh;
   position: relative;
   .left-wrapper {
@@ -124,6 +124,9 @@ const AuthStyled = styled.div`
       background-color: white;
       padding: 2rem 1.5rem;
       border-radius: 1rem;
+      @media screen and (max-width: 900px) {
+        width: 350px;
+      }
 
       header {
         width: 100%;
@@ -136,6 +139,12 @@ const AuthStyled = styled.div`
         margin: 10px 0;
         width: 100%;
       }
+
+      @media screen and (max-width: 900px) {
+        h2 {
+          font-size: 2rem;
+        }
+      }
     }
     form {
       padding-top: 1rem;
@@ -145,5 +154,15 @@ const AuthStyled = styled.div`
       flex-direction: column;
       justify-content: space-between;
     }
+
+    @media screen and (max-width: 900px) {
+      flex: 2;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 `;

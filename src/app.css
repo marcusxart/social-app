@@ -11,6 +11,7 @@ html {
 body {
   background-color: #f0f2f5;
   font-family: "Roboto", sans-serif;
+  width: 100vw;
 }
 
 h2 {
@@ -20,6 +21,10 @@ h2 {
 
 hr {
   border: 1px solid #ebebeb;
+}
+
+.App {
+  position: relative;
 }
 
 ::-webkit-scrollbar {
