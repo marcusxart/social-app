@@ -12,12 +12,10 @@ body {
   background-color: #f0f2f5;
   font-family: "Roboto", sans-serif;
   width: 100vw;
-  height: 100vh;
-  height: -webkit-fill-available;
+  height: calc(100vh- calc(100vh- 100%));
 }
 
 html {
-  height: -webkit-fill-available;
 }
 
 h2 {
