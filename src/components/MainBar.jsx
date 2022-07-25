@@ -24,6 +24,7 @@ const Bar = styled.div`
   padding: 2.5rem 2rem;
   min-width: 550px;
   max-width: 650px;
+
   flex: 1;
   .posts {
     max-width: 50rem;

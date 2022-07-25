@@ -90,7 +90,9 @@ export default Auth;
 const AuthStyled = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   height: 100vh;
+  height: -webkit-fill-available;
   position: relative;
   .left-wrapper {
     flex: 1;

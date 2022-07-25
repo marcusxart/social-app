@@ -17,7 +17,6 @@ const Home = () => {
 const HomeStyled = styled.div`
   padding: 0 2rem;
   display: flex;
-  position: relative;
   justify-content: space-between;
   @media screen and (max-width: 1030px) {
     justify-content: center;
