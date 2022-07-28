@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLoading } from "../features/loading/loadingSlice";
+import { selectUser } from "../features/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TextField, Button } from "@mui/material";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +15,9 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
+  const user = useSelector(selectUser);
 
   const handleCapitalize = (e) => {
     const value = e.target.value;
@@ -24,6 +29,7 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(toggleLoading(true));
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -37,10 +43,11 @@ const SignUp = ({ toggleSignUp, setToggleSignUp }) => {
         password,
       });
       setToggleSignUp(false);
+      dispatch(toggleLoading(false));
     } catch (err) {
       setError(err);
       alert(err.message);
-      console.log(err);
+      dispatch(toggleLoading(false));
     }
   };
 
@@ -139,6 +146,9 @@ const Wrapper = styled.div`
       font-size: 3rem;
       color: #5f5f5f;
     }
+  }
+  @media screen and (max-width: 600px) {
+    width: 350px;
   }
 `;
 

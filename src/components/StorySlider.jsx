@@ -52,7 +52,7 @@ const Story = styled.div`
   .profile {
     position: relative;
     img {
-      opacity: 0.6;
+      opacity: 0.8;
     }
 
     .plus-box {

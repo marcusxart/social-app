@@ -4,17 +4,26 @@
   box-sizing: border-box;
 }
 
+body,
+body > div,
+.v-application,
+.v-application--wrap {
+  height: 100vh;
+  height: -webkit-fill-available;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
 html {
   font-size: 62.5%;
+  height: 100vh;
   height: -webkit-fill-available;
 }
 
 body {
   background-color: #f0f2f5;
   font-family: "Roboto", sans-serif;
-  width: 100%;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  width: 100vw;
 }
 
 h2 {
@@ -28,6 +37,9 @@ hr {
 
 .App {
   position: relative;
+  height: 100vh;
+  overflow-x: hidden;
+  height: -webkit-fill-available;
 }
 
 ::-webkit-scrollbar {
@@ -54,5 +66,19 @@ hr {
   * {
     scrollbar-color: #9bcff0 #e5e8eb;
     scrollbar-width: thin;
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

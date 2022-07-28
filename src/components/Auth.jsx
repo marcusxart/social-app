@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLoading } from "../features/loading/loadingSlice";
+import { selectUser } from "../features/slices/userSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebaseConfig";
@@ -14,16 +17,22 @@ const Auth = () => {
   const [toggleSignUp, setToggleSignUp] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector(selectUser);
 
   const handleLogIn = async (e) => {
     e.preventDefault();
+    dispatch(toggleLoading(true));
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       localStorage.setItem("isLoggin", JSON.stringify({ isActive: "true" }));
+      dispatch(toggleLoading(false));
       navigate("/home");
     } catch (err) {
       setError(err.message);
       alert(err.message);
+      dispatch(toggleLoading(false));
     }
   };
   return (
@@ -88,12 +97,11 @@ const Auth = () => {
 export default Auth;
 
 const AuthStyled = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
-  height: 100vh;
-  height: -webkit-fill-available;
-  position: relative;
+
   .left-wrapper {
     flex: 1;
     display: flex;
@@ -116,6 +124,9 @@ const AuthStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 600px) {
+      align-items: flex-start;
+    }
 
     .wrap {
       width: 400px;

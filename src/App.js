@@ -12,10 +12,15 @@ import Home from "./components/Home";
 import Auth from "./components/Auth";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./ProtectedRoute";
+import Loading from "./components/Loading";
+import CreatePost from "./components/CreatePost";
+import { useSelector } from "react-redux/es/exports";
+import { selectLoading } from "./features/loading/loadingSlice";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(selectLoading);
   localStorage.setItem("isLoggin", JSON.stringify({ isActive: "false" }));
   const handleUserData = async (id) => {
     onSnapshot(doc(db, "users", id), (doc) => {
@@ -37,6 +42,7 @@ function App() {
 
   return (
     <main className="App">
+      {isLoading && <Loading />}
       <Header />
       {/* <CreatePost /> */}
       <Routes>
